@@ -5,7 +5,6 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.dsm.kdr_backend.global.jwt.exception.NotRefreshTokenException;
 import com.dsm.kdr_backend.global.jwt.exception.TokenUnauthorizedException;
 
 import io.jsonwebtoken.Claims;
@@ -57,7 +56,7 @@ public class JwtTokenProvider {
         try {
             return getHeader(token).get("typ").equals("refresh_token");
         } catch (Exception e) {
-            throw NotRefreshTokenException.EXCEPTION;
+            throw TokenUnauthorizedException.EXCEPTION;
         }
     }
 

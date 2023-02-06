@@ -9,8 +9,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum TokenErrorCode implements ErrorCode {
 
-	TOKEN_UNAUTHORIZED(401,"토큰이 유효 하지 않습니다."),
-	NOT_REFRESH_TOKEN(401,"refresh 토큰이 아닙니다.");
+	TOKEN_UNAUTHORIZED(401,"토큰이 유효 하지 않습니다.");
 
 	private final int status;
 	private final String message;
