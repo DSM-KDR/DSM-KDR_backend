@@ -2,10 +2,13 @@ package com.dsm.kdr_backend.domain.auth.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dsm.kdr_backend.domain.auth.domain.RefreshToken;
 import com.dsm.kdr_backend.domain.auth.domain.repository.RefreshRepository;
+import com.dsm.kdr_backend.domain.auth.exception.NotFoundRefreshTokenException;
 import com.dsm.kdr_backend.domain.auth.exception.NotMatchesPasswordException;
+import com.dsm.kdr_backend.domain.auth.exception.NotRefreshTokenException;
 import com.dsm.kdr_backend.domain.auth.presentation.dto.response.TokenResponse;
 import com.dsm.kdr_backend.global.jwt.JwtTokenProvider;
 
@@ -21,6 +24,7 @@ public class AuthService {
 	private final RefreshRepository refreshRepository;
 	private final JwtTokenProvider jwtTokenProvider;
 
+	@Transactional
 	public TokenResponse login(String comparePassword) {
 		if(!password.equals(comparePassword)) throw NotMatchesPasswordException.EXCEPTION;
 
@@ -29,6 +33,21 @@ public class AuthService {
 			.refreshToken(refreshRepository.save(
 				new RefreshToken(jwtTokenProvider.generateRefreshToken())).getRefreshToken())
 			.build();
+	}
+
+	@Transactional
+	public TokenResponse refreshToken(String refreshToken) {
+		if(!jwtTokenProvider.isRefreshToken(refreshToken)) throw NotRefreshTokenException.EXCEPTION;
+
+		RefreshToken token = refreshRepository.findById(refreshToken)
+			.orElseThrow(() -> NotFoundRefreshTokenException.EXCEPTION);
+
+		return TokenResponse.builder()
+			.accessToken(jwtTokenProvider.generateAccessToken())
+			.refreshToken(refreshRepository.save(
+				token.update(jwtTokenProvider.generateRefreshToken())).getRefreshToken())
+			.build();
+
 	}
 
 }
