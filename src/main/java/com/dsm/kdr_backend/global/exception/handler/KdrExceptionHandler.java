@@ -10,7 +10,7 @@ import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.dsm.kdr_backend.global.exception.KdrException;
+import com.dsm.kdr_backend.global.exception.BaseException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,8 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 @RestControllerAdvice
 public class KdrExceptionHandler {
 
-	@ExceptionHandler(KdrException.class)
-	protected ResponseEntity<ErrorResponse> handlerDcsException(final KdrException e) {
+	@ExceptionHandler(BaseException.class)
+	protected ResponseEntity<ErrorResponse> handlerDcsException(final BaseException e) {
 		return new ResponseEntity<>(new ErrorResponse(e.getErrorCode().getStatus(), e.getErrorCode().getMessage()), HttpStatus.valueOf(e.getErrorCode().getStatus()));
 	}
 

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.dsm.kdr_backend.global.exception.KdrException;
+import com.dsm.kdr_backend.global.exception.BaseException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class KdrExceptionFilter extends OncePerRequestFilter {
@@ -21,7 +21,7 @@ public class KdrExceptionFilter extends OncePerRequestFilter {
 
 		try {
 			filterChain.doFilter(request, response);
-		} catch (KdrException e) {
+		} catch (BaseException e) {
 			response.setStatus(e.getErrorCode().getStatus());
 
 			response.setContentType("application/json");
