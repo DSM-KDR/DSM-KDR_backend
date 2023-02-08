@@ -32,7 +32,7 @@ public class NoticeController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Long createNotice(@RequestBody @Valid NoticeRequest request) {
+	public Long saveNotice(@RequestBody @Valid NoticeRequest request) {
 		return noticeService.saveNotice(request);
 	}
 
