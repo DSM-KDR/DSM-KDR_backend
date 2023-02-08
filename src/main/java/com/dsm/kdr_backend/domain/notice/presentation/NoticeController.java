@@ -55,7 +55,7 @@ public class NoticeController {
 
 	@GetMapping("/{id}")
 	public NoticeResponse getNotice(@PathVariable("id") @NotBlank Long id) {
-		return noticeService.getNotice(id)
+		return noticeService.getNotice(id);
 	}
 
 	@GetMapping("/search")
