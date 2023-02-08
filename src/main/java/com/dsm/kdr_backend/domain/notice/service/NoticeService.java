@@ -21,7 +21,7 @@ public class NoticeService {
 	private final NoticeRepository noticeRepository;
 
 	@Transactional
-	public Long createNotice(NoticeRequest request) {
+	public Long saveNotice(NoticeRequest request) {
 		return noticeRepository.save(
 			Notice.builder()
 				.title(request.getTitle())
