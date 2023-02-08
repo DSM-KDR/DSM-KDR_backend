@@ -53,6 +53,7 @@ public class NoticeService {
 			notices.map( notice -> {
 					return NoticeListResponse.NoticeResponse.builder()
 						.id(notice.getId())
+						.preview(notice.getContent().split(" ")[0])
 						.title(notice.getTitle())
 						.content(notice.getContent())
 						.build();
@@ -80,6 +81,7 @@ public class NoticeService {
 			notices.map(notice -> {
 				return NoticeListResponse.NoticeResponse.builder()
 					.id(notice.getId())
+					.preview(notice.getContent().split(" ")[0])
 					.title(notice.getTitle())
 					.content(notice.getContent())
 					.build();

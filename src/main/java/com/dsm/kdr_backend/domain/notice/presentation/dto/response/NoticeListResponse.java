@@ -17,6 +17,7 @@ public class NoticeListResponse {
 	public class NoticeResponse {
 
 		private final Long id;
+		private final String preview;
 		private final String title;
 		private final String content;
 
