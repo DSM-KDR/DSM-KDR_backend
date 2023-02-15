@@ -1,7 +1,6 @@
 package com.dsm.kdr_backend.domain.notice.presentation;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.data.domain.Pageable;
