@@ -9,7 +9,7 @@ import com.dsm.kdr_backend.domain.notice.domain.Notice;
 import com.dsm.kdr_backend.domain.notice.domain.repository.NoticeRepository;
 import com.dsm.kdr_backend.domain.notice.exception.NotFoundNoticeException;
 import com.dsm.kdr_backend.domain.notice.presentation.dto.request.NoticeRequest;
-import com.dsm.kdr_backend.domain.notice.presentation.dto.response.NoticeListResponse;
+import com.dsm.kdr_backend.domain.notice.presentation.dto.response.NoticesResponse;
 import com.dsm.kdr_backend.domain.notice.presentation.dto.response.NoticeResponse;
 
 import lombok.RequiredArgsConstructor;
@@ -46,16 +46,16 @@ public class NoticeService {
 	}
 
 	@Transactional(readOnly = true)
-	public NoticeListResponse getNotices(Pageable page) {
+	public NoticesResponse getNotices(Pageable page) {
 		Page<Notice> notices = noticeRepository.findAllByOrderByIdDesc(page);
 
-		return new NoticeListResponse(notices.getTotalPages(),
+		return new NoticesResponse(notices.getTotalPages(),
 			notices.map( notice -> {
-					return NoticeListResponse.NoticeResponse.builder()
+					return NoticesResponse.NoticeResponse.builder()
 						.id(notice.getId())
 						.preview(notice.getContent().split(" ")[0])
 						.title(notice.getTitle())
-						.content(notice.getContent())
+						.date(notice.getCreatedDate())
 						.build();
 				}
 			).toList());
@@ -75,15 +75,15 @@ public class NoticeService {
 	}
 
 	@Transactional(readOnly = true)
-	public NoticeListResponse getSearchNoticeTitle(String title, Pageable page) {
-		Page<Notice> notices = noticeRepository.findAllByTitleContaining(title, page);
-		return new NoticeListResponse(notices.getTotalPages(),
+	public NoticesResponse getSearchNoticeTitle(String title, Pageable page) {
+		Page<Notice> notices = noticeRepository.findAllByTitleContainingOrderByIdDesc(title, page);
+		return new NoticesResponse(notices.getTotalPages(),
 			notices.map(notice -> {
-				return NoticeListResponse.NoticeResponse.builder()
+				return NoticesResponse.NoticeResponse.builder()
 					.id(notice.getId())
 					.preview(notice.getContent().split(" ")[0])
 					.title(notice.getTitle())
-					.content(notice.getContent())
+					.date(notice.getCreatedDate())
 					.build();
 			}).toList());
 	}

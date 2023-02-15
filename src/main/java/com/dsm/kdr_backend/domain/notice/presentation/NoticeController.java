@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dsm.kdr_backend.domain.notice.presentation.dto.request.NoticeRequest;
-import com.dsm.kdr_backend.domain.notice.presentation.dto.response.NoticeListResponse;
+import com.dsm.kdr_backend.domain.notice.presentation.dto.response.NoticesResponse;
 import com.dsm.kdr_backend.domain.notice.presentation.dto.response.NoticeResponse;
 import com.dsm.kdr_backend.domain.notice.service.NoticeService;
 
@@ -49,7 +49,7 @@ public class NoticeController {
 	}
 
 	@GetMapping
-	public NoticeListResponse getNotices(Pageable page) {
+	public NoticesResponse getNotices(Pageable page) {
 		return noticeService.getNotices(page);
 	}
 
@@ -59,7 +59,7 @@ public class NoticeController {
 	}
 
 	@GetMapping("/search")
-	public NoticeListResponse get(@RequestParam("title") String title, Pageable page) {
+	public NoticesResponse get(@RequestParam("title") String title, Pageable page) {
 		return noticeService.getSearchNoticeTitle(title, page);
 	}
 
