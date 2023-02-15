@@ -81,7 +81,7 @@ public class ProductController {
 	@GetMapping("/category")
 	public ProductsResponse getSearchProductCategory(Pageable page,
 					@RequestParam(value = "id") @NotNull(message = "카테고리 id가 입력되지 않았습니다.")Long id) {
-		return getSearchProductNameService.execute(id, page);
+		return getSearchProductCategoryService.execute(id, page);
 	}
 
 }
