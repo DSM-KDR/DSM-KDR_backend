@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dsm.kdr_backend.domain.product.presentation.dto.request.ProductRequest;
+import com.dsm.kdr_backend.domain.product.presentation.dto.response.ProductResponse;
 import com.dsm.kdr_backend.domain.product.presentation.dto.response.ProductsResponse;
 import com.dsm.kdr_backend.domain.product.service.DeleteProductService;
+import com.dsm.kdr_backend.domain.product.service.GetProductService;
 import com.dsm.kdr_backend.domain.product.service.GetProductsService;
 import com.dsm.kdr_backend.domain.product.service.SaveProductService;
 import com.dsm.kdr_backend.domain.product.service.UpdateProductService;
@@ -35,6 +37,7 @@ public class ProductController {
 	private final UpdateProductService updateProductService;
 	private final DeleteProductService deleteProductService;
 	private final GetProductsService getProductsService;
+	private final GetProductService getProductService;
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -59,6 +62,11 @@ public class ProductController {
 	@GetMapping
 	public ProductsResponse getProducts(Pageable page) {
 		return getProductsService.execute(page);
+	}
+
+	@GetMapping("/{id}")
+	public ProductResponse getProduct(@PathVariable("id") @NotNull(message = "수정할 상품 id가 입력되지 않았습니다.") Long id) {
+		return getProductService.execute(id);
 	}
 
 }
