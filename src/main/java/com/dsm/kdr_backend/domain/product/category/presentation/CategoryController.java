@@ -1,4 +1,4 @@
-package com.dsm.kdr_backend.domain.category.presentation;
+package com.dsm.kdr_backend.domain.product.category.presentation;
 
 import java.util.List;
 
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dsm.kdr_backend.domain.category.presentation.dto.response.CategoryResponse;
-import com.dsm.kdr_backend.domain.category.service.CategoryService;
+import com.dsm.kdr_backend.domain.product.category.presentation.dto.response.CategoryResponse;
+import com.dsm.kdr_backend.domain.product.category.service.CategoryService;
 
 import lombok.RequiredArgsConstructor;
 

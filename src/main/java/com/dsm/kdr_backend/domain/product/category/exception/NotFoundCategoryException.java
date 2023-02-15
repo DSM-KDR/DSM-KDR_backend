@@ -1,6 +1,6 @@
-package com.dsm.kdr_backend.domain.category.exception;
+package com.dsm.kdr_backend.domain.product.category.exception;
 
-import com.dsm.kdr_backend.domain.category.exception.error.CategoryErrorCode;
+import com.dsm.kdr_backend.domain.product.category.exception.error.CategoryErrorCode;
 import com.dsm.kdr_backend.global.exception.BaseException;
 
 public class NotFoundCategoryException extends BaseException {

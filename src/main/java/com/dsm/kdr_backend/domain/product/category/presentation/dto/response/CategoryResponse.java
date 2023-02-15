@@ -1,4 +1,4 @@
-package com.dsm.kdr_backend.domain.category.presentation.dto.response;
+package com.dsm.kdr_backend.domain.product.category.presentation.dto.response;
 
 import lombok.Builder;
 import lombok.Getter;

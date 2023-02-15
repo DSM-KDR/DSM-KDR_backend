@@ -1,4 +1,4 @@
-package com.dsm.kdr_backend.domain.category.service;
+package com.dsm.kdr_backend.domain.product.category.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.dsm.kdr_backend.domain.category.domain.Category;
-import com.dsm.kdr_backend.domain.category.domain.repository.CategoryRepository;
-import com.dsm.kdr_backend.domain.category.exception.NotFoundCategoryException;
-import com.dsm.kdr_backend.domain.category.presentation.dto.response.CategoryResponse;
+import com.dsm.kdr_backend.domain.product.category.domain.Category;
+import com.dsm.kdr_backend.domain.product.category.domain.repository.CategoryRepository;
+import com.dsm.kdr_backend.domain.product.category.exception.NotFoundCategoryException;
+import com.dsm.kdr_backend.domain.product.category.presentation.dto.response.CategoryResponse;
 
 import lombok.RequiredArgsConstructor;
 

@@ -1,4 +1,4 @@
-package com.dsm.kdr_backend.domain.category.domain;
+package com.dsm.kdr_backend.domain.product.category.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

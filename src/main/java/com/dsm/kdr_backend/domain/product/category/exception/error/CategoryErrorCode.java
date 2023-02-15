@@ -1,4 +1,4 @@
-package com.dsm.kdr_backend.domain.category.exception.error;
+package com.dsm.kdr_backend.domain.product.category.exception.error;
 
 import com.dsm.kdr_backend.global.exception.ErrorCode;
 
