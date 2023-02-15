@@ -23,6 +23,7 @@ import com.dsm.kdr_backend.domain.product.presentation.dto.response.ProductsResp
 import com.dsm.kdr_backend.domain.product.service.DeleteProductService;
 import com.dsm.kdr_backend.domain.product.service.GetProductService;
 import com.dsm.kdr_backend.domain.product.service.GetProductsService;
+import com.dsm.kdr_backend.domain.product.service.GetSearchProductNameService;
 import com.dsm.kdr_backend.domain.product.service.SaveProductService;
 import com.dsm.kdr_backend.domain.product.service.UpdateProductService;
 
@@ -38,6 +39,7 @@ public class ProductController {
 	private final DeleteProductService deleteProductService;
 	private final GetProductsService getProductsService;
 	private final GetProductService getProductService;
+	private final GetSearchProductNameService getSearchProductNameService;
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
@@ -67,6 +69,11 @@ public class ProductController {
 	@GetMapping("/{id}")
 	public ProductResponse getProduct(@PathVariable("id") @NotNull(message = "수정할 상품 id가 입력되지 않았습니다.") Long id) {
 		return getProductService.execute(id);
+	}
+
+	@GetMapping("/search")
+	public ProductsResponse getSearchProductName(@RequestParam(value = "name") String name, Pageable page) {
+		return getSearchProductNameService.execute(name, page);
 	}
 
 }
