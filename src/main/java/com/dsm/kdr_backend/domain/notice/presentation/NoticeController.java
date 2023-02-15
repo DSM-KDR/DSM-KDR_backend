@@ -37,14 +37,14 @@ public class NoticeController {
 	}
 
 	@PutMapping("/{id}")
-	public Long updateNotice(@PathVariable("id") @NotBlank Long id,
+	public Long updateNotice(@PathVariable("id") @NotBlank(message = "수정할 게시글 아이디를 입력해주세요.") Long id,
 								@RequestBody @Valid NoticeRequest request) {
 		return noticeService.updateNotice(id, request);
 	}
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteNotice(@PathVariable("id") @NotBlank Long id) {
+	public void deleteNotice(@PathVariable("id") @NotBlank(message = "삭제할 게시글 아이디를 입력해주세요.") Long id) {
 		noticeService.deleteNotice(id);
 	}
 
@@ -54,7 +54,7 @@ public class NoticeController {
 	}
 
 	@GetMapping("/{id}")
-	public NoticeResponse getNotice(@PathVariable("id") @NotBlank Long id) {
+	public NoticeResponse getNotice(@PathVariable("id") @NotBlank(message = "불러올 게시글 아이디를 입력해주세요.") Long id) {
 		return noticeService.getNotice(id);
 	}
 

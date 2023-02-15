@@ -25,11 +25,11 @@ public class AuthController {
 
 	@PostMapping("/login")
 	@ResponseStatus(HttpStatus.CREATED)
-	public TokenResponse login(@RequestBody @NotBlank String password) {
+	public TokenResponse login(@RequestBody @NotBlank(message = "비밀번호를 입력해주세요.") String password) {
 		return authService.login(password);
 	}
 	
 	@PutMapping("/refresh")
-	public TokenResponse refreshToken(@RequestHeader @NotBlank String refreshToken) { return authService.refreshToken(refreshToken); }
+	public TokenResponse refreshToken(@RequestHeader @NotBlank(message = "refreshToken를 입력해주세요.") String refreshToken) { return authService.refreshToken(refreshToken); }
 
 }
