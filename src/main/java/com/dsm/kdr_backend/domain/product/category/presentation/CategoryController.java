@@ -38,7 +38,7 @@ public class CategoryController {
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteCategory(@PathVariable("id") @NotNull(message = "삭제할 카테고리 id가 입력되지 않았습니다.") Long id) {
+	public void deleteCategory(@PathVariable("id") @NotNull(message = "입력해주세요.") Long id) {
 		categoryService.deleteCategory(id);
 	}
 

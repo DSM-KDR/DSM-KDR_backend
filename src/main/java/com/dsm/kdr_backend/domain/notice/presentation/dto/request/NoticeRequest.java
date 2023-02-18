@@ -8,11 +8,11 @@ import lombok.Getter;
 @Getter
 public class NoticeRequest {
 
-	@NotBlank(message = "공지 제목을 입력해주세요.")
+	@NotBlank(message = "입력해주세요.")
 	@Size(max = 20, message = "20자 이하로 입력해주세요.")
 	private String title;
 
-	@NotBlank(message = "공지 내용을 입력해주세요.")
+	@NotBlank(message = "입력해주세요.")
 	@Size(max = 2000, message = "2000자 이하로 입력해주세요.")
 	private String content;
 

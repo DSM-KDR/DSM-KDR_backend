@@ -35,7 +35,7 @@ public class KdrExceptionHandler {
 
 		StringBuilder builder = new StringBuilder();
 		for (FieldError fieldError : bindingResult.getFieldErrors()) {
-			builder.append(fieldError.getField()).append("(은)는 ");
+			builder.append(fieldError.getField()).append("(을)를 ");
 			builder.append(fieldError.getDefaultMessage()).append("   ");
 		}
 
