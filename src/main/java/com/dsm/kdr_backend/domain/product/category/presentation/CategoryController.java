@@ -21,7 +21,7 @@ import com.dsm.kdr_backend.domain.product.category.service.CategoryService;
 
 import lombok.RequiredArgsConstructor;
 
-@RequestMapping("/product/category")
+@RequestMapping("/category")
 @RequiredArgsConstructor
 @RestController
 public class CategoryController {
