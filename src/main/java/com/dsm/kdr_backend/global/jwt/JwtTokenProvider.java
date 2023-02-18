@@ -54,7 +54,7 @@ public class JwtTokenProvider {
 
     public boolean isRefreshToken(String token) {
         try {
-            return getHeader(token).get("typ").equals("refresh_token");
+            return getHeader(token).get("typ").equals("refresh");
         } catch (Exception e) {
             throw TokenUnauthorizedException.EXCEPTION;
         }
