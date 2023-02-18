@@ -40,7 +40,7 @@ public class AuthService {
 	public TokenResponse refreshToken(String refreshToken) {
 		if(!jwtTokenProvider.isRefreshToken(refreshToken)) throw NotRefreshTokenException.EXCEPTION;
 
-		RefreshToken token = refreshRepository.findById(refreshToken)
+		RefreshToken token = refreshRepository.findByRefreshToken(refreshToken)
 			.orElseThrow(() -> NotFoundRefreshTokenException.EXCEPTION);
 
 		return TokenResponse.builder()

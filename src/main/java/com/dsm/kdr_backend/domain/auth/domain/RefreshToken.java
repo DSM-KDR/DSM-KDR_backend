@@ -1,7 +1,9 @@
 package com.dsm.kdr_backend.domain.auth.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
+
+import com.dsm.kdr_backend.global.entity.BaseIdEntity;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -10,9 +12,9 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class RefreshToken {
+public class RefreshToken extends BaseIdEntity {
 
-	@Id
+	@Column(nullable = false, unique = true)
 	private String refreshToken;
 
 	public RefreshToken(String refreshToken) {
