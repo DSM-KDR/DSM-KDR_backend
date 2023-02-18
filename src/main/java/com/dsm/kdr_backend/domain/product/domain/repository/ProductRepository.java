@@ -1,6 +1,6 @@
 package com.dsm.kdr_backend.domain.product.domain.repository;
 
-import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -10,6 +10,6 @@ import com.dsm.kdr_backend.domain.product.domain.Product;
 
 public interface ProductRepository extends CrudRepository<Product, Long> {
 	Page<Product> findAllByOrderByIdDesc(Pageable page);
-	Page<Product> findAllByIdOrderByIdDesc(List<Long> ids, Pageable page);
+	Optional<Product> findByIdOrderByIdDesc(Long id);
 	Page<Product> findAllByNameContainingOrderByIdDesc(String name, Pageable page);
 }
