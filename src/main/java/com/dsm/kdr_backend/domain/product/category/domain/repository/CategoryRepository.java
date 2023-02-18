@@ -8,5 +8,4 @@ import com.dsm.kdr_backend.domain.product.category.domain.Category;
 
 public interface CategoryRepository extends CrudRepository<Category, Long> {
 	List<Category> findAll();
-	List<Category> findAllById(List<Long> ids);
 }
