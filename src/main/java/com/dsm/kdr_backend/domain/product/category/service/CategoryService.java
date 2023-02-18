@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dsm.kdr_backend.domain.product.category.domain.Category;
 import com.dsm.kdr_backend.domain.product.category.domain.repository.CategoryRepository;
 import com.dsm.kdr_backend.domain.product.category.exception.NotFoundCategoryException;
+import com.dsm.kdr_backend.domain.product.category.presentation.dto.request.CategoryRequest;
 import com.dsm.kdr_backend.domain.product.category.presentation.dto.response.CategoryResponse;
 
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,8 @@ public class CategoryService {
 	private final CategoryRepository categoryRepository;
 
 	@Transactional
-	public Long saveCategory(String category) {
-		return categoryRepository.save(new Category(category)).getId();
+	public Long saveCategory(CategoryRequest request) {
+		return categoryRepository.save(new Category(request.getCategory())).getId();
 	}
 
 	@Transactional

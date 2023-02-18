@@ -33,7 +33,7 @@ public class GetSearchProductCategoryService {
 				return productCategoryMapper.getProductId();
 			}).collect(Collectors.toList());
 
-		List<Product> products = new ArrayList<>(); 
+		List<Product> products = new ArrayList<>();
 		for(Long id : productIds) {
 			products.add(productRepository.findByIdOrderByIdDesc(id)
 				.orElseThrow(() -> NotFoundProductException.EXCEPTION));

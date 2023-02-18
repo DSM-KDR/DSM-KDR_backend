@@ -2,6 +2,7 @@ package com.dsm.kdr_backend.domain.product.category.presentation;
 
 import java.util.List;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dsm.kdr_backend.domain.product.category.presentation.dto.request.CategoryRequest;
 import com.dsm.kdr_backend.domain.product.category.presentation.dto.response.CategoryResponse;
 import com.dsm.kdr_backend.domain.product.category.service.CategoryService;
 
@@ -30,9 +32,8 @@ public class CategoryController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Long saveCategory(@RequestBody @NotBlank(message = "생성할 카테고리 이름을 입력해주세요.")
-								@Size(max = 10, message = "10자 이하로 작성해주세요.") String category) {
-		return categoryService.saveCategory(category);
+	public Long saveCategory(@RequestBody @Valid CategoryRequest request) {
+		return categoryService.saveCategory(request);
 	}
 
 	@DeleteMapping("/{id}")

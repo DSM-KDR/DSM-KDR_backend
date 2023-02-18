@@ -1,5 +1,6 @@
 package com.dsm.kdr_backend.domain.auth.presentation;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dsm.kdr_backend.domain.auth.presentation.dto.request.PasswordRequest;
 import com.dsm.kdr_backend.domain.auth.presentation.dto.response.TokenResponse;
 import com.dsm.kdr_backend.domain.auth.service.AuthService;
 
@@ -25,8 +27,8 @@ public class AuthController {
 
 	@PostMapping("/login")
 	@ResponseStatus(HttpStatus.CREATED)
-	public TokenResponse login(@RequestBody @NotBlank(message = "비밀번호를 입력해주세요.") String password) {
-		return authService.login(password);
+	public TokenResponse login(@RequestBody @Valid PasswordRequest request) {
+		return authService.login(request);
 	}
 	
 	@PutMapping("/refresh")
