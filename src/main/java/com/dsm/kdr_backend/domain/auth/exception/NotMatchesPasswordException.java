@@ -8,6 +8,6 @@ public class NotMatchesPasswordException extends BaseException {
 	public final static NotMatchesPasswordException EXCEPTION = new NotMatchesPasswordException();
 
 	public NotMatchesPasswordException() {
-		super(AuthErrorCode.NOT_REFRESH_TOKEN);
+		super(AuthErrorCode.NOT_MATCHES_PASSWORD);
 	}
 }
