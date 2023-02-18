@@ -32,6 +32,6 @@ public class AuthController {
 	}
 	
 	@PutMapping("/refresh")
-	public TokenResponse refreshToken(@RequestHeader @NotBlank(message = "refreshToken를 입력해주세요.") String refreshToken) { return authService.refreshToken(refreshToken); }
+	public TokenResponse refreshToken(@RequestHeader("refresh-token") @NotBlank(message = "입력해주세요.") String refreshToken) { return authService.refreshToken(refreshToken); }
 
 }
