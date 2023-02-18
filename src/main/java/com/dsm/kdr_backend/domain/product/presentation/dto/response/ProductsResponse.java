@@ -14,7 +14,7 @@ public class ProductsResponse {
 	private final List<ProductResponse> productResponses;
 
 	@Getter @Builder
-	public class ProductResponse {
+	static public class ProductResponse {
 
 		private final Long id;
 		private final String image;

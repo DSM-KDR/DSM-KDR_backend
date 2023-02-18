@@ -15,7 +15,7 @@ public class NoticesResponse {
 	private final List<NoticeResponse> noticeResponses;
 
 	@Getter @Builder
-	public class NoticeResponse {
+	static public class NoticeResponse {
 
 		private final Long id;
 		private final String preview;
