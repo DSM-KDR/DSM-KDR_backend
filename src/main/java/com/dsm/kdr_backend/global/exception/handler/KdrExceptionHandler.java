@@ -8,7 +8,9 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.dsm.kdr_backend.global.exception.BaseException;
 
@@ -44,9 +46,15 @@ public class KdrExceptionHandler {
 	}
 
 	@ExceptionHandler(HttpRequestMethodNotSupportedException.class)
-	protected ResponseEntity<ErrorResponse> handleHttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
-		log.error("[handleHttpRequestMethodNotSupportedException] : " + e.getMessage());
+	protected ResponseEntity<ErrorResponse> HttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e) {
+		log.error("[HttpRequestMethodNotSupportedException] : " + e.getMessage());
 		return new ResponseEntity<>(new ErrorResponse(405, e.getMessage()), HttpStatus.METHOD_NOT_ALLOWED);
+	}
+
+	@ExceptionHandler(NoHandlerFoundException.class)
+	public ResponseEntity<ErrorResponse> NoHandlerFoundException(NoHandlerFoundException e){
+		log.error("[NoHandlerFoundException] : " + e.getMessage());
+		return new ResponseEntity<>(new ErrorResponse(404, "요청한 페이지를 찾을 수 없습니다. { URL : " +  e.getRequestURL() + " }"), HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler(MissingRequestHeaderException.class)
