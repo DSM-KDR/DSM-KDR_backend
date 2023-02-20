@@ -24,7 +24,7 @@ public class ProductRequest {
 	@Valid
 	@NotNull(message = "상품 카테고리을 입력해주세요.")
 	@Size(min = 1, message = "상품 카테고리을 입력해주세요.")
-	private List<@NotBlank(message = "상품 카테고리을 입력해주세요.") Long> category;
+	private List<@NotNull(message = "상품 카테고리을 입력해주세요.") Long> category;
 
 	@PositiveOrZero(message = "0 이상의 용량을 입력해주세요.")
 	private int capacity;
