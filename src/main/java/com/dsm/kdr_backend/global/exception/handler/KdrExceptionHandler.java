@@ -7,6 +7,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingRequestHeaderException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -59,6 +60,12 @@ public class KdrExceptionHandler {
 
 	@ExceptionHandler(MissingRequestHeaderException.class)
 	protected ResponseEntity<ErrorResponse> MissingRequestHeaderException(Exception e) {
+		log.error("[MissingRequestHeaderException] : " + e.getMessage());
+		return new ResponseEntity<>(new ErrorResponse(400, e.getMessage()), HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(MissingServletRequestParameterException.class)
+	protected ResponseEntity<ErrorResponse> MissingServletRequestParameterException(Exception e) {
 		log.error("[MissingRequestHeaderException] : " + e.getMessage());
 		return new ResponseEntity<>(new ErrorResponse(400, e.getMessage()), HttpStatus.BAD_REQUEST);
 	}
