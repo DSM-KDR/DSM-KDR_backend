@@ -43,6 +43,7 @@ public class Product extends BaseIdEntity {
 
 	@Builder
 	private Product(String name, String short_description, int capacity, String description, int price, String origin) {
+		this.path = "temporary";
 		this.name = name;
 		this.short_description = short_description;
 		this.capacity = capacity;
@@ -61,9 +62,8 @@ public class Product extends BaseIdEntity {
 		return this;
 	}
 
-	public Long updatePath(String path) {
+	public void updatePath(String path) {
 		this.path = path;
-		return getId();
 	}
 
 }

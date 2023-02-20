@@ -13,6 +13,7 @@ import com.dsm.kdr_backend.domain.product.domain.repository.ProductCategoryMappe
 import com.dsm.kdr_backend.domain.product.domain.repository.ProductRepository;
 import com.dsm.kdr_backend.domain.product.presentation.dto.request.ProductRequest;
 import com.dsm.kdr_backend.global.aws.S3Util;
+import com.dsm.kdr_backend.global.aws.exception.ImageNotSaveException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -43,6 +44,7 @@ public class SaveProductService {
 		}
 
 		product.updatePath(s3Util.uploadImage(file));
+		if(product.getPath().equals("temporary")) throw ImageNotSaveException.EXCEPTION;
 		return product.getId();
 
 	}
