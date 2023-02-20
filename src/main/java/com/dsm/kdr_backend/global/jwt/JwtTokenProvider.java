@@ -3,6 +3,10 @@ package com.dsm.kdr_backend.global.jwt;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import com.dsm.kdr_backend.global.jwt.exception.TokenUnauthorizedException;
@@ -25,6 +29,8 @@ public class JwtTokenProvider {
 
     @Value("${auth.jwt.exp.refresh}")
     private Long refreshTokenTime;
+    
+    private final UserDetailsService userDetailsService;
 
     public String generateAccessToken() {
         return Jwts.builder()
@@ -42,6 +48,11 @@ public class JwtTokenProvider {
                 .setHeaderParam("typ", "refresh")
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
+    }
+
+    public Authentication getAuthentication(String accessToken) {
+        UserDetails details = userDetailsService.loadUserByUsername("");
+        return new UsernamePasswordAuthenticationToken(details, "", details.getAuthorities());
     }
 
     public boolean validateToken(String token) {
