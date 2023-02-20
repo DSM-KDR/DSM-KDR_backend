@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import com.dsm.kdr_backend.global.jwt.exception.NotAccessTokenException;
+
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -26,6 +28,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         String token = resolveToken(request);
 
         if(token != null && jwtTokenProvider.validateToken(token)) {
+            if(!jwtTokenProvider.isAccessToken(token)) throw NotAccessTokenException.EXCEPTION;
             SecurityContextHolder.getContext().setAuthentication(jwtTokenProvider.getAuthentication(token));
         }
 

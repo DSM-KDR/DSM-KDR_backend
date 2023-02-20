@@ -71,13 +71,21 @@ public class JwtTokenProvider {
         }
     }
 
+    public boolean isAccessToken(String token) {
+        try {
+            return getHeader(token).get("typ").equals("access");
+        } catch (Exception e) {
+            throw TokenUnauthorizedException.EXCEPTION;
+        }
+    }
+
     private Claims getBody(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
     }
 
     private JwsHeader getHeader(String token) {
         return Jwts.parser().setSigningKey(secretKey)
-                .parseClaimsJws(token).getHeader();
+            .parseClaimsJws(token).getHeader();
     }
 
 }
