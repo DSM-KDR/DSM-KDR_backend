@@ -9,7 +9,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum CategoryErrorCode implements ErrorCode {
 
-	NOT_FOUND_CATEGORY(404, "카테고리를 찾을 수 없습니다.");
+	NOT_FOUND_CATEGORY(404, "카테고리를 찾을 수 없습니다."),
+	NOT_EXIST_CATEGORY(409, "존재하지 않는 카테고리 입니다.");
 
 	private final int status;
 	private final String message;

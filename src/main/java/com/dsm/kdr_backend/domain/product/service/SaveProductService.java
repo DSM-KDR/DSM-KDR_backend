@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dsm.kdr_backend.domain.product.category.domain.repository.CategoryRepository;
+import com.dsm.kdr_backend.domain.product.category.exception.NotExistCategoryException;
 import com.dsm.kdr_backend.domain.product.category.exception.NotFoundCategoryException;
 import com.dsm.kdr_backend.domain.product.domain.Product;
 import com.dsm.kdr_backend.domain.product.domain.ProductCategoryMapper;
@@ -37,7 +38,7 @@ public class SaveProductService {
 		);
 
 		for(Long categoryId : request.getCategory()) {
-			categoryRepository.findById(categoryId).orElseThrow(() -> NotFoundCategoryException.EXCEPTION);
+			categoryRepository.findById(categoryId).orElseThrow(() -> NotExistCategoryException.EXCEPTION);
 			productCategoryMapperRepository.save(new ProductCategoryMapper(categoryId, product.getId()));
 		}
 
