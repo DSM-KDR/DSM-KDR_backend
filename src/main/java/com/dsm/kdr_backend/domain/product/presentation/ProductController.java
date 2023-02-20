@@ -59,7 +59,7 @@ public class ProductController {
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteProduct(@PathVariable("id") @NotNull(message = "수정할 상품 id가 입력되지 않았습니다.") Long id) {
+	public void deleteProduct(@PathVariable("id") Long id) {
 		deleteProductService.execute(id);
 	}
 
@@ -69,7 +69,7 @@ public class ProductController {
 	}
 
 	@GetMapping("/{id}")
-	public ProductResponse getProduct(@PathVariable("id") @NotNull(message = "수정할 상품 id가 입력되지 않았습니다.") Long id) {
+	public ProductResponse getProduct(@PathVariable("id") Long id) {
 		return getProductService.execute(id);
 	}
 
