@@ -11,6 +11,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.dsm.kdr_backend.global.exception.BaseException;
@@ -66,7 +67,13 @@ public class KdrExceptionHandler {
 
 	@ExceptionHandler(MissingServletRequestParameterException.class)
 	protected ResponseEntity<ErrorResponse> MissingServletRequestParameterException(Exception e) {
-		log.error("[MissingRequestHeaderException] : " + e.getMessage());
+		log.error("[MissingServletRequestParameterException] : " + e.getMessage());
+		return new ResponseEntity<>(new ErrorResponse(400, e.getMessage()), HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(MissingServletRequestPartException.class)
+	protected ResponseEntity<ErrorResponse> MissingServletRequestPartException(Exception e) {
+		log.error("[MissingServletRequestPartException] : " + e.getMessage());
 		return new ResponseEntity<>(new ErrorResponse(400, e.getMessage()), HttpStatus.BAD_REQUEST);
 	}
 
