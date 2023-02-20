@@ -43,7 +43,7 @@ public class S3Util {
 	}
 
 	public String getS3ObjectUrl(String path) {
-		return s3BaseUrl + path;
+		return s3BaseUrl + "/" + path;
 	}
 
 	private String verificationFile(MultipartFile file) {
