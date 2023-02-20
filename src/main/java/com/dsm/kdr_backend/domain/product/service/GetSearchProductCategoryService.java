@@ -17,7 +17,9 @@ import com.dsm.kdr_backend.domain.product.presentation.dto.response.ProductsResp
 import com.dsm.kdr_backend.global.aws.S3Util;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class GetSearchProductCategoryService {
@@ -27,7 +29,7 @@ public class GetSearchProductCategoryService {
 	private final S3Util s3Util;
 
 	@Transactional(readOnly = true)
-	public ProductsResponse execute(Long categoryId, Pageable page) {
+	public ProductsResponse execute(Long categoryId, Pageable pageable) {
 		List<Long> productIds = productCategoryMapperRepository.findAllByCategoryId(categoryId)
 			.stream().map(productCategoryMapper -> {
 				return productCategoryMapper.getProductId();
@@ -39,9 +41,18 @@ public class GetSearchProductCategoryService {
 				.orElseThrow(() -> NotFoundProductException.EXCEPTION));
 		}
 
-		int startPage = page.getPageSize() * page.getPageNumber() -1;
-		int totalPages = products.size()/page.getPageSize();
-		List<Product> processedProducts = products.subList(startPage,startPage+page.getPageSize());
+		int page = pageable.getPageSize() * pageable.getPageNumber();
+		List<Product> processedProducts = new ArrayList<>();
+		log.info("page : " + page);
+
+		if(products.size() >= page + pageable.getPageSize()) {
+			int endPage = products.size() - page;
+			processedProducts = products.subList(endPage - pageable.getPageSize() ,endPage);
+		} else {
+			processedProducts = products.subList(0, products.size() - page);
+		}
+
+		int totalPages = products.size()/pageable.getPageSize() +1;
 
 		processedProducts.sort((product1, product2) -> (int)(product2.getId() - product1.getId()));
 
