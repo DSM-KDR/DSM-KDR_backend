@@ -59,7 +59,7 @@ public class NoticeController {
 	}
 
 	@GetMapping("/search")
-	public NoticesResponse get(@RequestParam("title") String title, Pageable page) {
+	public NoticesResponse getSearchNoticeTitle(@RequestParam("title") String title, Pageable page) {
 		return noticeService.getSearchNoticeTitle(title, page);
 	}
 
