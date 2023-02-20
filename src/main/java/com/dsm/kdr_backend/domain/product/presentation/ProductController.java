@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -52,9 +51,9 @@ public class ProductController {
 	}
 
 	@PutMapping("/{id}")
-	public Long updateProduct(@RequestBody @Valid ProductRequest request,
-								@PathVariable("id") @NotNull(message = "수정할 상품 id가 입력되지 않았습니다.") Long id,
-								@RequestParam(value = "file") MultipartFile file) {
+	public Long updateProduct(@PathVariable("id") Long id,
+								@RequestPart(value = "productRequest") @Valid ProductRequest request,
+								@RequestPart(value = "file", required = false) MultipartFile file) {
 		return updateProductService.execute(id, request, file);
 	}
 
