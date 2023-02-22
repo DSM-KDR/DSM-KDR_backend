@@ -31,14 +31,15 @@ public class Notice extends BaseTimeEntity {
 		this.content = content;
 	}
 
-	public void update(String title, String content) {
+	public Long update(String title, String content) {
 		this.title = title;
 		this.content = content;
+		this.path = path;
+		return getId();
 	}
 
-	public Notice updatePath(String path) {
+	public void updatePath(String path) {
 		this.path = path;
-		return this;
 	}
 
 }

@@ -9,6 +9,7 @@ import lombok.Getter;
 public class NoticeResponse {
 
 	private final String title;
+	private final String preview;
 	private final String content;
 	private final LocalDate date;
 
