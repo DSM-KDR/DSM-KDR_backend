@@ -14,10 +14,14 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Category extends BaseIdEntity {
 
+	@Column(nullable = false)
+	private String path;
+
 	@Column(nullable = false, length = 10)
 	private String category;
 
-	public Category(String category) {
+	public Category(String category, String path) {
+		this.path = path;
 		this.category = category;
 	}
 
