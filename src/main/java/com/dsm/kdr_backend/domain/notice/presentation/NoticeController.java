@@ -1,7 +1,6 @@
 package com.dsm.kdr_backend.domain.notice.presentation;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -37,14 +36,14 @@ public class NoticeController {
 	}
 
 	@PutMapping("/{id}")
-	public Long updateNotice(@PathVariable("id") @NotNull(message = "입력해주세요.") Long id,
+	public Long updateNotice(@PathVariable("id") Long id,
 								@RequestBody @Valid NoticeRequest request) {
 		return noticeService.updateNotice(id, request);
 	}
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void deleteNotice(@PathVariable("id") @NotNull(message = "입력해주세요.") Long id) {
+	public void deleteNotice(@PathVariable("id") Long id) {
 		noticeService.deleteNotice(id);
 	}
 
@@ -54,7 +53,7 @@ public class NoticeController {
 	}
 
 	@GetMapping("/{id}")
-	public NoticeResponse getNotice(@PathVariable("id") @NotNull(message = "입력해주세요.") Long id) {
+	public NoticeResponse getNotice(@PathVariable("id") Long id) {
 		return noticeService.getNotice(id);
 	}
 
