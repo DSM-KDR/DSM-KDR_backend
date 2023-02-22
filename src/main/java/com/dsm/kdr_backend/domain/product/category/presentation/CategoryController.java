@@ -3,19 +3,18 @@ package com.dsm.kdr_backend.domain.product.category.presentation;
 import java.util.List;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.dsm.kdr_backend.domain.product.category.presentation.dto.request.CategoryRequest;
 import com.dsm.kdr_backend.domain.product.category.presentation.dto.response.CategoryResponse;
@@ -32,8 +31,9 @@ public class CategoryController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Long saveCategory(@RequestBody @Valid CategoryRequest request) {
-		return categoryService.saveCategory(request);
+	public Long saveCategory(@RequestPart(value = "categoryRequest") @Valid CategoryRequest request,
+							@RequestPart(value = "file") MultipartFile file) {
+		return categoryService.saveCategory(request, file);
 	}
 
 	@DeleteMapping("/{id}")

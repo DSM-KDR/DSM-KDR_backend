@@ -7,6 +7,7 @@ import lombok.Getter;
 public class CategoryResponse {
 
 	private final Long id;
+	private final String imgae;
 	private final String category;
 
 }
