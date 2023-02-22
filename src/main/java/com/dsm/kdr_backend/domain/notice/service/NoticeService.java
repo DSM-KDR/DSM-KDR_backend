@@ -49,16 +49,7 @@ public class NoticeService {
 	public NoticesResponse getNotices(Pageable page) {
 		Page<Notice> notices = noticeRepository.findAllByOrderByIdDesc(page);
 
-		return new NoticesResponse(notices.getTotalPages(),
-			notices.map( notice -> {
-					return NoticesResponse.NoticeResponse.builder()
-						.id(notice.getId())
-						.preview(notice.getContent().split(" ")[0])
-						.title(notice.getTitle())
-						.date(notice.getCreatedDate())
-						.build();
-				}
-			).toList());
+		return new NoticesResponse(notices.getTotalPages(), notices.map(this::ofNoticeResponse).toList());
 	}
 
 	@Transactional(readOnly = true)
@@ -77,15 +68,16 @@ public class NoticeService {
 	@Transactional(readOnly = true)
 	public NoticesResponse getSearchNoticeTitle(String title, Pageable page) {
 		Page<Notice> notices = noticeRepository.findAllByTitleContainingOrderByIdDesc(title, page);
-		return new NoticesResponse(notices.getTotalPages(),
-			notices.map(notice -> {
-				return NoticesResponse.NoticeResponse.builder()
-					.id(notice.getId())
-					.preview(notice.getContent().split(" ")[0])
-					.title(notice.getTitle())
-					.date(notice.getCreatedDate())
-					.build();
-			}).toList());
+		return new NoticesResponse(notices.getTotalPages(), notices.map(this::ofNoticeResponse).toList());
+	}
+
+	private NoticesResponse.NoticeResponse ofNoticeResponse(Notice notice) {
+		return NoticesResponse.NoticeResponse.builder()
+			.id(notice.getId())
+			.preview(s3Util.getS3ObjectUrl(notice.getPath()))
+			.title(notice.getTitle())
+			.date(notice.getCreatedDate())
+			.build();
 	}
 
 }
