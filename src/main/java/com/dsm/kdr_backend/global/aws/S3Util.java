@@ -31,11 +31,11 @@ public class S3Util {
 		amazonS3.deleteObject(bucketName, objectName);
 	}
 
-	public String uploadImage(MultipartFile file) {
+	public String uploadImage(MultipartFile file, String folderName) {
 		String extension = verificationFile(file);
 		String filePath;
 		try{
-			filePath = saveImage(file, extension);
+			filePath = saveImage(file, extension, folderName);
 		} catch (IOException e) {
 			throw ImageNotSaveException.EXCEPTION;
 		}
@@ -57,8 +57,8 @@ public class S3Util {
 		return extension;
 	}
 
-	private String saveImage(MultipartFile file, String extension) throws IOException {
-		String filePath = UUID.randomUUID() + extension;
+	private String saveImage(MultipartFile file, String extension, String folderName) throws IOException {
+		String filePath = folderName + UUID.randomUUID() + extension;
 
 		amazonS3.putObject(new PutObjectRequest(bucketName, filePath, file.getInputStream(), null)
 			.withCannedAcl(CannedAccessControlList.PublicRead));
