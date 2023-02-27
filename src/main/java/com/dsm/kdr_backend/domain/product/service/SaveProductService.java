@@ -31,7 +31,6 @@ public class SaveProductService {
 		Product product = productRepository.save(Product.builder()
 			.name(request.getName())
 			.capacity(request.getCapacity())
-			.short_description(request.getShort_description())
 			.price(request.getPrice())
 			.description(request.getDescription())
 			.origin(request.getOrigin())

@@ -39,7 +39,6 @@ public class GetProductService {
 		return ProductResponse.builder()
 			.image(s3Util.getS3ObjectUrl(product.getPath()))
 			.name(product.getName())
-			.short_description(product.getShort_description())
 			.capacity(product.getCapacity())
 			.origin(product.getOrigin())
 			.description(product.getDescription())

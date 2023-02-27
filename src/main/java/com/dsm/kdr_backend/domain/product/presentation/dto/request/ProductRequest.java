@@ -17,10 +17,6 @@ public class ProductRequest {
 	@Size(max = 20, message = "상품 이름을 20자 이하로 입력해주세요.")
 	private String name;
 
-	@NotBlank(message = "상품 설명을 입력해주세요.")
-	@Size(max = 30, message = "상품 설명을 30자 이하로 입력해주세요.")
-	private String short_description;
-
 	@Valid
 	@NotNull(message = "상품 카테고리을 입력해주세요.")
 	@Size(min = 1, message = "상품 카테고리을 입력해주세요.")

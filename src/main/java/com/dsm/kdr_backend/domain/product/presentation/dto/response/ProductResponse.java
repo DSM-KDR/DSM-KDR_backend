@@ -10,7 +10,6 @@ public class ProductResponse {
 
 	private final String image;
 	private final String name;
-	private final String short_description;
 	private final List<String> category;
 	private final int capacity;
 	private final String description;

@@ -26,9 +26,6 @@ public class Product extends BaseIdEntity {
 	@Column(nullable = false, length = 20)
 	private String name;
 
-	@Column(nullable = false, length = 30)
-	private String short_description;
-
 	@Column
 	private int	capacity;
 
@@ -42,19 +39,17 @@ public class Product extends BaseIdEntity {
 	private String origin;
 
 	@Builder
-	private Product(String name, String short_description, int capacity, String description, int price, String origin) {
+	private Product(String name, int capacity, String description, int price, String origin) {
 		this.path = "temporary";
 		this.name = name;
-		this.short_description = short_description;
 		this.capacity = capacity;
 		this.description = description;
 		this.price = price;
 		this.origin = origin;
 	}
 
-	public Product updateProduct(String name, String short_description, int capacity, String description, int price, String origin) {
+	public Product updateProduct(String name, int capacity, String description, int price, String origin) {
 		this.name = name;
-		this.short_description = short_description;
 		this.capacity = capacity;
 		this.description = description;
 		this.price = price;

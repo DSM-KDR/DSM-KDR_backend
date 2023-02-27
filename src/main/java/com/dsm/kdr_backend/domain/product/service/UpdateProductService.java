@@ -34,8 +34,7 @@ public class UpdateProductService {
 		List<ProductCategoryMapper> productCategoryMappers = productCategoryMapperRepository.findAllByProductId(product.getId());
 		productCategoryMapperRepository.deleteAll(productCategoryMappers);
 
-		product.updateProduct(request.getName(), request.getShort_description(),
-			request.getCapacity(), request.getDescription(), request.getPrice(), request.getOrigin());
+		product.updateProduct(request.getName(), request.getCapacity(), request.getDescription(), request.getPrice(), request.getOrigin());
 
 		for(Long categoryId : request.getCategory()) {
 			categoryRepository.findById(categoryId).orElseThrow(() -> NotFoundCategoryException.EXCEPTION);
