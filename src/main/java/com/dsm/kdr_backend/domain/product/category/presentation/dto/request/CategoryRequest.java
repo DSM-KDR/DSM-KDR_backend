@@ -9,6 +9,9 @@ import lombok.Getter;
 public class CategoryRequest {
 
 	@NotBlank(message = "입력해주세요.")
+	private String image;
+
+	@NotBlank(message = "입력해주세요.")
 	@Size(max = 10, message = "10자 이하로 입력해주세요.")
 	private String category;
 
