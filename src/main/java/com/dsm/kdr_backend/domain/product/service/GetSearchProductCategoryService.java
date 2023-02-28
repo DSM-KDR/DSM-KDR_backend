@@ -1,7 +1,6 @@
 package com.dsm.kdr_backend.domain.product.service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,19 +13,15 @@ import com.dsm.kdr_backend.domain.product.domain.repository.ProductCategoryMappe
 import com.dsm.kdr_backend.domain.product.domain.repository.ProductRepository;
 import com.dsm.kdr_backend.domain.product.exception.NotFoundProductException;
 import com.dsm.kdr_backend.domain.product.presentation.dto.response.ProductsResponse;
-import com.dsm.kdr_backend.global.aws.S3Util;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @RequiredArgsConstructor
 @Service
 public class GetSearchProductCategoryService {
 
 	private final ProductRepository productRepository;
 	private final ProductCategoryMapperRepository productCategoryMapperRepository;
-	private final S3Util s3Util;
 
 	@Transactional(readOnly = true)
 	public ProductsResponse execute(Long categoryId, Pageable pageable) {
@@ -43,7 +38,6 @@ public class GetSearchProductCategoryService {
 
 		int page = pageable.getPageSize() * pageable.getPageNumber();
 		List<Product> processedProducts = new ArrayList<>();
-		log.info("page : " + page);
 
 		if(products.size() >= page + pageable.getPageSize()) {
 			int endPage = products.size() - page;
@@ -60,7 +54,7 @@ public class GetSearchProductCategoryService {
 			processedProducts.stream().map(product -> {
 					return ProductsResponse.ProductResponse.builder()
 						.id(product.getId())
-						.image(s3Util.getS3ObjectUrl(product.getPath()))
+						.image(product.getImage())
 						.name(product.getName())
 						.build();
 				}
