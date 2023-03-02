@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.dsm.kdr_backend.domain.notice.domain.Notice;
 import com.dsm.kdr_backend.domain.notice.domain.repository.NoticeRepository;
@@ -11,6 +12,7 @@ import com.dsm.kdr_backend.domain.notice.exception.NotFoundNoticeException;
 import com.dsm.kdr_backend.domain.notice.presentation.dto.request.NoticeRequest;
 import com.dsm.kdr_backend.domain.notice.presentation.dto.response.NoticesResponse;
 import com.dsm.kdr_backend.domain.notice.presentation.dto.response.NoticeResponse;
+import com.dsm.kdr_backend.global.aws.S3Util;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,21 +21,28 @@ import lombok.RequiredArgsConstructor;
 public class NoticeService {
 
 	private final NoticeRepository noticeRepository;
+	private final S3Util s3Util;
 
 	@Transactional
-	public Long saveNotice(NoticeRequest request) {
+	public Long saveNotice(NoticeRequest request, MultipartFile file) {
 		return noticeRepository.save(
 			Notice.builder()
 				.title(request.getTitle())
 				.content(request.getContent())
+				.path(s3Util.uploadImage(file, "/notice"))
 				.build()
 		).getId();
 	}
 
 	@Transactional
-	public Long updateNotice(Long id, NoticeRequest request) {
-		Notice notice = noticeRepository.findById(id)
-			.orElseThrow(() -> NotFoundNoticeException.EXCEPTION);
+	public Long updateNotice(Long id, NoticeRequest request, MultipartFile file) {
+		Notice notice = noticeRepository.findById(id).orElseThrow(() -> NotFoundNoticeException.EXCEPTION);
+
+		if(file != null) {
+			s3Util.delete(notice.getPath());
+			notice.updatePath(s3Util.uploadImage(file, "/notice"));
+		}
+
 		return notice.update(request.getTitle(), request.getContent());
 	}
 
@@ -56,7 +65,7 @@ public class NoticeService {
 		return noticeRepository.findById(id)
 			.map(notice -> {
 				return NoticeResponse.builder()
-					.preview(notice.getContent().split(" ")[0])
+					.preview(s3Util.getS3ObjectUrl(notice.getPath()))
 					.title(notice.getTitle())
 					.content(notice.getContent())
 					.date(notice.getCreatedDate())
@@ -74,7 +83,7 @@ public class NoticeService {
 	private NoticesResponse.NoticeResponse ofNoticeResponse(Notice notice) {
 		return NoticesResponse.NoticeResponse.builder()
 			.id(notice.getId())
-			.preview(notice.getContent().split(" ")[0])
+			.preview(s3Util.getS3ObjectUrl(notice.getPath()))
 			.title(notice.getTitle())
 			.date(notice.getCreatedDate())
 			.build();

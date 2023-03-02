@@ -13,6 +13,7 @@ import com.dsm.kdr_backend.domain.product.domain.repository.ProductCategoryMappe
 import com.dsm.kdr_backend.domain.product.domain.repository.ProductRepository;
 import com.dsm.kdr_backend.domain.product.exception.NotFoundProductException;
 import com.dsm.kdr_backend.domain.product.presentation.dto.response.ProductsResponse;
+import com.dsm.kdr_backend.global.aws.S3Util;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +23,7 @@ public class GetSearchProductCategoryService {
 
 	private final ProductRepository productRepository;
 	private final ProductCategoryMapperRepository productCategoryMapperRepository;
+	private final S3Util s3Util;
 
 	@Transactional(readOnly = true)
 	public ProductsResponse execute(Long categoryId, Pageable pageable) {
@@ -54,7 +56,7 @@ public class GetSearchProductCategoryService {
 			processedProducts.stream().map(product -> {
 					return ProductsResponse.ProductResponse.builder()
 						.id(product.getId())
-						.image(product.getImage())
+						.image(s3Util.getS3ObjectUrl(product.getPath()))
 						.name(product.getName())
 						.build();
 				}

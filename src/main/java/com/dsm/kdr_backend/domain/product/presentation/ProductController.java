@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
@@ -46,13 +45,16 @@ public class ProductController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Long saveProduct(@RequestBody @Valid ProductRequest request) {
-		return saveProductService.execute(request);
+	public Long saveProduct(@RequestPart(value = "productRequest") @Valid ProductRequest request,
+								@RequestPart(value = "file") MultipartFile file) {
+		return saveProductService.execute(request, file);
 	}
 
 	@PutMapping("/{id}")
-	public Long updateProduct(@PathVariable("id") Long id, @RequestBody @Valid ProductRequest request) {
-		return updateProductService.execute(id, request);
+	public Long updateProduct(@PathVariable("id") Long id,
+								@RequestPart(value = "productRequest") @Valid ProductRequest request,
+								@RequestPart(value = "file", required = false) MultipartFile file) {
+		return updateProductService.execute(id, request, file);
 	}
 
 	@DeleteMapping("/{id}")

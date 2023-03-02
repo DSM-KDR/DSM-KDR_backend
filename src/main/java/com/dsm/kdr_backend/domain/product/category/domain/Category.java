@@ -15,13 +15,13 @@ import lombok.NoArgsConstructor;
 public class Category extends BaseIdEntity {
 
 	@Column(nullable = false)
-	private String image;
+	private String path;
 
 	@Column(nullable = false, length = 10)
 	private String category;
 
-	public Category(String category, String image) {
-		this.image = image;
+	public Category(String category, String path) {
+		this.path = path;
 		this.category = category;
 	}
 

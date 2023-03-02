@@ -15,6 +15,9 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Notice extends BaseTimeEntity {
 
+	@Column(nullable = false)
+	private String path;
+
 	@Column(nullable = false, length = 20)
 	private String title;
 
@@ -22,7 +25,7 @@ public class Notice extends BaseTimeEntity {
 	private String content;
 
 	@Builder
-	private Notice(String title, String content) {
+	private Notice(String path, String title, String content) {
 		this.title = title;
 		this.content = content;
 	}
@@ -31,6 +34,10 @@ public class Notice extends BaseTimeEntity {
 		this.title = title;
 		this.content = content;
 		return getId();
+	}
+
+	public void updatePath(String path) {
+		this.path = path;
 	}
 
 }

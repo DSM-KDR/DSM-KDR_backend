@@ -12,6 +12,8 @@ import com.dsm.kdr_backend.domain.product.domain.ProductCategoryMapper;
 import com.dsm.kdr_backend.domain.product.domain.repository.ProductCategoryMapperRepository;
 import com.dsm.kdr_backend.domain.product.domain.repository.ProductRepository;
 import com.dsm.kdr_backend.domain.product.presentation.dto.request.ProductRequest;
+import com.dsm.kdr_backend.global.aws.S3Util;
+import com.dsm.kdr_backend.global.aws.exception.ImageNotSaveException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,12 +24,12 @@ public class SaveProductService {
 	private final ProductRepository productRepository;
 	private final CategoryRepository categoryRepository;
 	private final ProductCategoryMapperRepository productCategoryMapperRepository;
+	private final S3Util s3Util;
 
 	@Transactional(rollbackFor = NotFoundCategoryException.class)
-	public Long execute(ProductRequest request) {
+	public Long execute(ProductRequest request, MultipartFile file) {
 
 		Product product = productRepository.save(Product.builder()
-			.image(request.getImage())
 			.name(request.getName())
 			.capacity(request.getCapacity())
 			.price(request.getPrice())
@@ -40,6 +42,9 @@ public class SaveProductService {
 			categoryRepository.findById(categoryId).orElseThrow(() -> NotExistCategoryException.EXCEPTION);
 			productCategoryMapperRepository.save(new ProductCategoryMapper(categoryId, product.getId()));
 		}
+
+		product.updatePath(s3Util.uploadImage(file, "/product"));
+		if(product.getPath().equals("temporary")) throw ImageNotSaveException.EXCEPTION;
 
 		return product.getId();
 

@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 public class Product extends BaseIdEntity {
 
 	@Column(nullable = false)
-	private String image;
+	private String path;
 
 	@Column(nullable = false, length = 20)
 	private String name;
@@ -39,8 +39,8 @@ public class Product extends BaseIdEntity {
 	private String origin;
 
 	@Builder
-	private Product(String image, String name, int capacity, String description, int price, String origin) {
-		this.image = image;
+	private Product(String name, int capacity, String description, int price, String origin) {
+		this.path = "temporary";
 		this.name = name;
 		this.capacity = capacity;
 		this.description = description;
@@ -48,8 +48,7 @@ public class Product extends BaseIdEntity {
 		this.origin = origin;
 	}
 
-	public Product updateProduct(String image, String name, int capacity, String description, int price, String origin) {
-		this.image = image;
+	public Product updateProduct(String name, int capacity, String description, int price, String origin) {
 		this.name = name;
 		this.capacity = capacity;
 		this.description = description;
@@ -57,4 +56,9 @@ public class Product extends BaseIdEntity {
 		this.origin = origin;
 		return this;
 	}
+
+	public void updatePath(String path) {
+		this.path = path;
+	}
+
 }

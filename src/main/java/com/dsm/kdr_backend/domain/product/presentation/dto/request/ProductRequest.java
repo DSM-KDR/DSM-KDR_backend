@@ -14,9 +14,6 @@ import lombok.Getter;
 public class ProductRequest {
 
 	@NotBlank(message = "입력해주세요.")
-	private String image;
-
-	@NotBlank(message = "입력해주세요.")
 	@Size(max = 20, message = "20자 이하로 입력해주세요.")
 	private String name;
 

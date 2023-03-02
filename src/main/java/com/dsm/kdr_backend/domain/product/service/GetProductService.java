@@ -13,6 +13,7 @@ import com.dsm.kdr_backend.domain.product.domain.repository.ProductCategoryMappe
 import com.dsm.kdr_backend.domain.product.domain.repository.ProductRepository;
 import com.dsm.kdr_backend.domain.product.exception.NotFoundProductException;
 import com.dsm.kdr_backend.domain.product.presentation.dto.response.ProductResponse;
+import com.dsm.kdr_backend.global.aws.S3Util;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,6 +24,7 @@ public class GetProductService {
 	private final ProductRepository productRepository;
 	private final CategoryRepository categoryRepository;
 	private final ProductCategoryMapperRepository productCategoryMapperRepository;
+	private final S3Util s3Util;
 
 	@Transactional(readOnly = true)
 	public ProductResponse execute(Long productId) {
@@ -35,7 +37,7 @@ public class GetProductService {
 			}).collect(Collectors.toList());
 
 		return ProductResponse.builder()
-			.image(product.getImage())
+			.image(s3Util.getS3ObjectUrl(product.getPath()))
 			.name(product.getName())
 			.capacity(product.getCapacity())
 			.origin(product.getOrigin())
