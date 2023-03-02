@@ -39,13 +39,21 @@ public class CategoryService {
 	@Transactional(readOnly = true)
 	public List<CategoryResponse> getCategories() {
 		return categoryRepository.findAll()
-			.stream().map(category -> {
-				return CategoryResponse.builder()
-					.id(category.getId())
-					.image(s3Util.getS3ObjectUrl(category.getPath()))
-					.category(category.getCategory())
-					.build();
-			}).collect(Collectors.toList());
+			.stream().map(this::ofCategoryResponse).collect(Collectors.toList());
+	}
+
+	@Transactional(readOnly = true)
+	public List<CategoryResponse> getSearchCategory(String category) {
+		return categoryRepository.findAllByCategoryContaining(category)
+			.stream().map(this::ofCategoryResponse).collect(Collectors.toList());
+	}
+
+	private CategoryResponse ofCategoryResponse(Category category) {
+		return CategoryResponse.builder()
+			.id(category.getId())
+			.image(s3Util.getS3ObjectUrl(category.getPath()))
+			.category(category.getCategory())
+			.build();
 	}
 
 }
