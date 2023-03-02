@@ -26,6 +26,7 @@ public class Notice extends BaseTimeEntity {
 
 	@Builder
 	private Notice(String path, String title, String content) {
+		this.path = path;
 		this.title = title;
 		this.content = content;
 	}
