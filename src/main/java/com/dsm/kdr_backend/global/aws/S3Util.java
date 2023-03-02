@@ -58,7 +58,7 @@ public class S3Util {
 	}
 
 	private String saveImage(MultipartFile file, String extension, String folderName) throws IOException {
-		String filePath = folderName + UUID.randomUUID() + extension;
+		String filePath = folderName + "/" + UUID.randomUUID() + extension;
 
 		amazonS3.putObject(new PutObjectRequest(bucketName, filePath, file.getInputStream(), null)
 			.withCannedAcl(CannedAccessControlList.PublicRead));

@@ -43,7 +43,7 @@ public class UpdateProductService {
 
 		if(file != null) {
 			s3Util.delete(product.getPath());
-			product.updatePath(s3Util.uploadImage(file, "/product"));
+			product.updatePath(s3Util.uploadImage(file, "product"));
 		}
 
 		return product.getId();

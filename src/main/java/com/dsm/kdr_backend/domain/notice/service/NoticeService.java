@@ -29,7 +29,7 @@ public class NoticeService {
 			Notice.builder()
 				.title(request.getTitle())
 				.content(request.getContent())
-				.path(s3Util.uploadImage(file, "/notice"))
+				.path(s3Util.uploadImage(file, "notice"))
 				.build()
 		).getId();
 	}
@@ -40,7 +40,7 @@ public class NoticeService {
 
 		if(file != null) {
 			s3Util.delete(notice.getPath());
-			notice.updatePath(s3Util.uploadImage(file, "/notice"));
+			notice.updatePath(s3Util.uploadImage(file, "notice"));
 		}
 
 		return notice.update(request.getTitle(), request.getContent());

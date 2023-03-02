@@ -43,7 +43,7 @@ public class SaveProductService {
 			productCategoryMapperRepository.save(new ProductCategoryMapper(categoryId, product.getId()));
 		}
 
-		product.updatePath(s3Util.uploadImage(file, "/product"));
+		product.updatePath(s3Util.uploadImage(file, "product"));
 		if(product.getPath().equals("temporary")) throw ImageNotSaveException.EXCEPTION;
 
 		return product.getId();

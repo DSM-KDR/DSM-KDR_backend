@@ -26,7 +26,7 @@ public class CategoryService {
 	@Transactional
 	public Long saveCategory(CategoryRequest request, MultipartFile file) {
 		return categoryRepository.save(
-			new Category(request.getCategory(), s3Util.uploadImage(file, "/category"))).getId();
+			new Category(request.getCategory(), s3Util.uploadImage(file, "category"))).getId();
 	}
 
 	@Transactional
