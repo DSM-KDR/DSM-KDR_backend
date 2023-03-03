@@ -50,7 +50,8 @@ public class S3Util {
 		if(file == null || file.isEmpty() || file.getOriginalFilename() == null) throw ImageBadRequestException.EXCEPTION;
 
 		String extension = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
-		if (!(extension.contains(".JPG") || extension.contains(".jpg") || extension.contains(".jpeg") || extension.contains(".JPEG") || extension.contains(".png") || extension.contains(".PNG"))) {
+		if (!(extension.contains(".JPG") || extension.contains(".jpg") || extension.contains(".jpeg") || extension.contains(".JPEG") || extension.contains(".png") || extension.contains(".PNG")
+			|| extension.contains("webp") || extension.contains("WEBP"))) {
 			throw ImageBadRequestException.EXCEPTION;
 		}
 
