@@ -1,7 +1,5 @@
 package com.dsm.kdr_backend.domain.product.category.presentation;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
@@ -17,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dsm.kdr_backend.domain.product.category.presentation.dto.request.CategoryRequest;
-import com.dsm.kdr_backend.domain.product.category.presentation.dto.response.CategoryResponse;
+import com.dsm.kdr_backend.domain.product.category.presentation.dto.response.CategoriesResponse;
 import com.dsm.kdr_backend.domain.product.category.service.CategoryService;
 
 import lombok.RequiredArgsConstructor;
@@ -43,12 +41,12 @@ public class CategoryController {
 	}
 
 	@GetMapping
-	public List<CategoryResponse> getCategories() {
+	public CategoriesResponse getCategories() {
 		return categoryService.getCategories();
 	}
 
 	@GetMapping("/search")
-	public List<CategoryResponse> getSearchCategory(@RequestParam(value = "category")String category) {
+	public CategoriesResponse getSearchCategory(@RequestParam(value = "category")String category) {
 		return categoryService.getSearchCategory(category);
 	}
 
